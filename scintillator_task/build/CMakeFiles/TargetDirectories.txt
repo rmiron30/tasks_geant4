@@ -1,0 +1,7 @@
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/install/strip.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/install/local.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/install.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/list_install_components.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/rebuild_cache.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/edit_cache.dir
+/home/raluca/geant4/scintillator_task/build/CMakeFiles/TestEm4.dir
