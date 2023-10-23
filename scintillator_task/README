@@ -1,5 +1,18 @@
 -------------------------------------------------------------------
 
+                            FIRST TASKS
+                            
+1. Build and run example TestEM4 in batch mode also in visualization mode. Save and 
+plot results
+2. Define new materials: CsI(Tl), BGO, LYSO
+3. Define a panel scintillator of 4 cm 4 cm x 2 mm
+4. Simulate the deposited energy in each type of scintillator for photon energies: 
+0.1 MeV, 0.5 MeV, 1 MeV, 3 MeV, 5 MeV, 10 MeV
+5. Plot all results
+
+
+-------------------------------------------------------------------
+
      =========================================================
      Geant4 - an Object-Oriented Toolkit for Simulation in HEP
      =========================================================
