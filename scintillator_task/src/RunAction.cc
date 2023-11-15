@@ -38,6 +38,8 @@
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 
+#include "G4AnalysisManager.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RunAction::RunAction()
@@ -45,12 +47,13 @@ RunAction::RunAction()
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager->SetDefaultFileType("root");
-  analysisManager->SetVerboseLevel(1);  
+  analysisManager->SetVerboseLevel(2);  
   analysisManager->SetFirstHistoId(1);
     
   // Creating histograms
   //
-  analysisManager->CreateH1("1","energy (MeV) deposited in BGO",100,0.,10.);
+  analysisManager->CreateH1("Hist","energy (MeV) deposited in CsI",100000,0.,11.);
+   analysisManager->CreateH2("Hist2D", "Energy Deposition", 1000, -0.20, 0.2, 1000, -0.2, 0.2);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

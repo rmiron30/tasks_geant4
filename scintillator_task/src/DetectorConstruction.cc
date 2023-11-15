@@ -143,25 +143,39 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                                  false,                        //no boolean operation
                                  0, true);                        //copy number
 
+	// CONTAINERUL PENTRU SCINTILATOR - CONTINE AER SAU VID
+	G4double Xw=15*cm, Yw=15*cm, Zw=15*cm;
+	
+	G4Box *BBox =  new G4Box("BBox", Xw, Yw, Zw);
+	G4Material *galactic = manager->FindOrBuildMaterial("G4_AIR");
+	G4LogicalVolume *BBoxLV =  new G4LogicalVolume(BBox, galactic, "BBoxLV");
+	G4VPhysicalVolume *BBoxphys = new G4PVPlacement(0,                        //no rotation
+                                   G4ThreeVector(),        //at (0,0,0)
+                                 BBoxLV,                //its logical volume
+                                 "BBoxphys",                //its name
+                                 0,                        //its mother  volume
+                                 false,                        //no boolean operation
+                                 0, true);                        //copy number
+
   //
   // Scintillator pannel 4cm x 4cm x 2mm
   //
   
-  G4double x1 = 4*cm, x2 = 4*cm, x3 = 0.2*cm;
+  G4double x1 = 2*cm, x2 = 2*cm, x3 = 1*mm;
   
   G4Box *scintilBox =  new G4Box("scintilBox", x1, x2, x3);
   
-  G4LogicalVolume *logicBox = new G4LogicalVolume(scintilBox, BGO, "logicBox");
+  G4LogicalVolume *logicBox = new G4LogicalVolume(scintilBox, LYSO, "logicBox");
   
   G4VPhysicalVolume *physBox = new G4PVPlacement(0,                        //no rotation
                                    G4ThreeVector(),        //at (0,0,0)
                                  logicBox,                //its logical volume
                                  "physBox",                //its name
-                                 0,
-       //                          logicWorld,                        //its mother  volume
+       	                 BBoxLV,                        //its mother  volume
                                  false,                        //no boolean operation
                                  0, true);
-  return physBox;
+                                 
+  return BBoxphys;
   //new G4PVPlacement(0, G4ThreeVector(1., 0., 0.), logicBox, "physBox", physiWorld, false, 0, true);
 
   //

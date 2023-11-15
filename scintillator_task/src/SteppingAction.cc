@@ -35,8 +35,11 @@
 
 #include "SteppingAction.hh"
 #include "EventAction.hh"
+#include "G4UnitsTable.hh"
+#include "G4SystemOfUnits.hh"
 #include "G4SteppingManager.hh"
 #include "G4RunManager.hh"
+#include "G4AnalysisManager.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -55,7 +58,13 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
 {
  G4double EdepStep = aStep->GetTotalEnergyDeposit();
  if (EdepStep > 0.) fEventAction->AddEdep(EdepStep);
-  
+ 
+ G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+ G4ThreeVector position = aStep->GetPreStepPoint()->GetPosition();
+ if(EdepStep>0.01){
+ analysisManager->FillH2(1, position.x(), position.y(), EdepStep/MeV);
+ G4cout << position.x() << ' ' << position.y() << " " << EdepStep/MeV  << G4endl;
+  }
  //example of saving random number seed of this event, under condition
  //// if (condition) G4RunManager::GetRunManager()->rndmSaveThisEvent();  
 }

@@ -62,7 +62,10 @@ void EventAction::BeginOfEventAction( const G4Event*)
 void EventAction::EndOfEventAction( const G4Event*)
 {                          
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  
+  if (fTotalEnergyDeposit!=0)
   analysisManager->FillH1(1, fTotalEnergyDeposit/MeV);
+  // analysisManager -> FillH2(1, 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
