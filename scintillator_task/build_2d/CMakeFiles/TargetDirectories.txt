@@ -1,0 +1,7 @@
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/install/strip.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/install/local.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/install.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/list_install_components.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/rebuild_cache.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/edit_cache.dir
+/home/raluca/geant4/tasks_geant4/scintillator_task/build_2d/CMakeFiles/TestEm4.dir
