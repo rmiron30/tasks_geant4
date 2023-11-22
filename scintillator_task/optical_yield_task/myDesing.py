@@ -122,6 +122,22 @@ colors_energy = {'0.1': "blue", '0.5':"green", '1.0':"red", '3.0':"purple", '5.0
 
 #x_values = []
 #y_values = []
+'''
+def functionPlot(data, material, width):
+    x_val = []
+    y_val = []
+    for dataPoint in data:
+        if dataPoint["material"] == f"{material}":
+            if dataPoint["width"] == f"{width}":
+                x_val.append(dataPoint["energy"])
+                y_val.append(dataPoint["opt_yield"])
+    return x_val, y_val
+material = "CSI"
+width = 0.5
+x_values, y_values = functionPlot(data, material, width)
+plt.scatter(x_values, y_values)
+plt.show()
+'''
 
 for dataPoint in data:
     if dataPoint["material"]=="CSI":
