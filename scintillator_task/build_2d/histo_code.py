@@ -47,5 +47,6 @@ def getEdep(hist):
     #gPad.WaitPrimitive("ggg")
 
 
-getEdep(hist)
+#getEdep(hist)
+print(hist2.Integral())
 getEdep(hist1d)
