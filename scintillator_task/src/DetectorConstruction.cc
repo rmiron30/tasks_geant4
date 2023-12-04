@@ -161,7 +161,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   // Scintillator pannel 4cm x 4cm x 2mm
   //
   
-  G4double x1 = 2*cm, x2 = 2*cm, x3 = 1*mm;
+  G4double x1 = 1*cm, x2 = 1*cm, x3 = 1*mm;
   
   G4Box *scintilBox =  new G4Box("scintilBox", x1, x2, x3);
   

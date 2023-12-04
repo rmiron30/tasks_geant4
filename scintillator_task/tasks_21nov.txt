@@ -1,0 +1,7 @@
+- fit in python cu o functie Lorenziana; verifica
+- analitic - fwhm si fwtm 
+- salveaza toate simularile - dif energii, dif grosimi, dif scintilatoare
+- gamma == sigma -> fwhm = 2 gamma
+- mareste nr de bini din histograma (reduce dim. scintilatorului) -> 2cm, 5000 bins
+- 
+

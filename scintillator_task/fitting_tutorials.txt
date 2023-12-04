@@ -1,0 +1,16 @@
+useful links for fitting with a gaussian or lorentzian: 
+##########
+Built-in models LMFIT
+https://lmfit.github.io/lmfit-py/builtin_models.html
+https://cars9.uchicago.edu/software/python/lmfit_MinimizerResult/builtin_models.html
+##########
+Youtube
+https://www.youtube.com/watch?v=Vgzqvhr6srU
+https://www.youtube.com/watch?v=Vx4bBVYphUA
+##########
+https://docs.astropy.org/en/stable/api/astropy.modeling.functional_models.Lorentz1D.html
+https://docs.astropy.org/en/stable/_modules/astropy/modeling/functional_models.html#Lorentz1D.evaluate
+https://stackoverflow.com/questions/50581956/lorentzian-fit-two-ways-of-writing-a-code
+##########
+http://emilygraceripka.com/blog/16
+https://gist.github.com/cowlicks/7905027
