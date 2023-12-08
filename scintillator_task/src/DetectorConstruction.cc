@@ -58,20 +58,12 @@ DetectorConstruction::~DetectorConstruction()
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
   //
-  // define a material from its elements.   case 1: chemical molecule
+  // define a material from its elements
   // 
   G4double a, z;
   G4double density; 
   G4double concentrationOfTl; 
   G4int ncomponents, natoms;
- 
-  G4Element* C = new G4Element("Carbon"  ,"C" , z= 6., a= 12.01*g/mole);
-  G4Element* F = new G4Element("Fluorine","F" , z= 9., a= 18.99*g/mole);
- 
-  G4Material* C6F6 = 
-  new G4Material("FluorCarbonate", density= 1.61*g/cm3, ncomponents=2);
-  C6F6->AddElement(C, natoms=6);
-  C6F6->AddElement(F, natoms=6);
   
   // Definition of CsI(Tl) crystal
   
@@ -120,42 +112,21 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   LYSO->AddElement(Si,7*perCent);
   LYSO->AddElement(O, 18*perCent);
   LYSO->AddElement(Y, 4*perCent);
-   
-  //     
-  // Container
-  //  
-  G4double Rmin=0., Rmax=5*cm, deltaZ= 5*cm, Phimin=0., deltaPhi=360*degree;
 
-  G4Tubs*  
-  solidWorld = new G4Tubs("C6F6",                        //its name
-                   Rmin,Rmax,deltaZ,Phimin,deltaPhi);        //its size
-
-  G4LogicalVolume*                         
-  logicWorld = new G4LogicalVolume(solidWorld,                //its solid
-                                   C6F6,                //its material
-                                   "C6F6");                //its name
-  G4VPhysicalVolume*                                   
-  physiWorld = new G4PVPlacement(0,                        //no rotation
-                                   G4ThreeVector(),        //at (0,0,0)
-                                 logicWorld,                //its logical volume
-                                 "C6F6",                //its name
-                                 0,                        //its mother  volume
-                                 false,                        //no boolean operation
-                                 0, true);                        //copy number
 
 	// CONTAINERUL PENTRU SCINTILATOR - CONTINE AER SAU VID
 	G4double Xw=15*cm, Yw=15*cm, Zw=15*cm;
-	
+
 	G4Box *BBox =  new G4Box("BBox", Xw, Yw, Zw);
 	G4Material *galactic = manager->FindOrBuildMaterial("G4_AIR");
 	G4LogicalVolume *BBoxLV =  new G4LogicalVolume(BBox, galactic, "BBoxLV");
 	G4VPhysicalVolume *BBoxphys = new G4PVPlacement(0,                        //no rotation
-                                   G4ThreeVector(),        //at (0,0,0)
-                                 BBoxLV,                //its logical volume
-                                 "BBoxphys",                //its name
-                                 0,                        //its mother  volume
-                                 false,                        //no boolean operation
-                                 0, true);                        //copy number
+		                   G4ThreeVector(),        //at (0,0,0)
+		                 BBoxLV,                //its logical volume
+		                 "BBoxphys",                //its name
+		                 0,                        //its mother  volume
+		                 false,                        //no boolean operation
+		                 0, true);                        //copy number
 
   //
   // Scintillator pannel 4cm x 4cm x 2mm

@@ -60,7 +60,7 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
  if (EdepStep > 0.) fEventAction->AddEdep(EdepStep);
  
  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
- G4ThreeVector position = aStep->GetPreStepPoint()->GetPosition();
+ G4ThreeVector position = aStep->GetPostStepPoint()->GetPosition();
  if(EdepStep>0.){
  analysisManager->FillH2(1, position.x(), position.y(), EdepStep/MeV);
  G4cout << position.x() << ' ' << position.y() << " " << EdepStep/MeV  << G4endl;
