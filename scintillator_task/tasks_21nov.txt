@@ -4,4 +4,6 @@
 - gamma == sigma -> fwhm = 2 gamma
 - mareste nr de bini din histograma (reduce dim. scintilatorului) -> 2cm, 5000 bins
 - 
+- coutns vs energy -> normeaza la maximum bin content 
+- ruleaza cu 10^6 sau 10^8
 

@@ -53,7 +53,7 @@ RunAction::RunAction()
   // Creating histograms
   //
   analysisManager->CreateH1("Hist","energy (MeV) deposited in CsI",100000,0.,11.);
-   analysisManager->CreateH2("Hist2D", "Energy Deposition", 2000, -1*cm, 1*cm, 2000, -1*cm, 1*cm);
+   analysisManager->CreateH2("Hist2D", "Energy Deposition", 2000, -1*mm, 1*mm, 2000, -1*mm, 1*mm);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
