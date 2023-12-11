@@ -28,7 +28,7 @@
 //
 //
 //
-// 
+//
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -46,20 +46,19 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
-: G4VUserPrimaryGeneratorAction(),fParticleGun(0)
+    : G4VUserPrimaryGeneratorAction(), fParticleGun(0)
 {
   G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
-  
+  fParticleGun = new G4ParticleGun(n_particle);
+  // fEnergy = config["energy"];
+  // G4cout << "!!!" << fEnergy << " energy" << G4endl;
   // default particle kinematic
 
-  G4ParticleDefinition* particle
-           = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
+  G4ParticleDefinition *particle = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
   fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
-  fParticleGun->SetParticleEnergy(1*MeV);
-  fParticleGun->SetParticlePosition(G4ThreeVector(0.*cm,0.*cm,-10*cm));
-
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
+  fParticleGun->SetParticleEnergy(5 * MeV);
+  fParticleGun->SetParticlePosition(G4ThreeVector(0. * cm, 0. * cm, -10 * cm));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -71,30 +70,29 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
 {
-  //this function is called at the begining of event
+  // this function is called at the begining of event
   //
-  //distribution uniform in solid angle
+  // distribution uniform in solid angle
   //
-  	G4ThreeVector pos(0.,0.,0.);
-  	G4ThreeVector mom(0.,0.,1.);
-	
-//	fParticleGun->SetParticlePosition(pos);
-//	fParticleGun->SetParticleMomentumDirection(mom);
-//	fParticleGun->SetParticleMomentum(100.*GeV);
-//	fParticleGun->SetParticleDefinition(particle);
-	
-  //G4double cosTheta = 2*G4UniformRand() - 1., phi = twopi*G4UniformRand();
-  //G4double sinTheta = std::sqrt(1. - cosTheta*cosTheta);
-  //G4double ux = sinTheta*std::cos(phi),
-  //         uy = sinTheta*std::sin(phi),
-  //         uz = cosTheta;
+  G4ThreeVector pos(0., 0., 0.);
+  G4ThreeVector mom(0., 0., 1.);
+
+  //	fParticleGun->SetParticlePosition(pos);
+  //	fParticleGun->SetParticleMomentumDirection(mom);
+  //	fParticleGun->SetParticleMomentum(100.*GeV);
+  //	fParticleGun->SetParticleDefinition(particle);
+
+  // G4double cosTheta = 2*G4UniformRand() - 1., phi = twopi*G4UniformRand();
+  // G4double sinTheta = std::sqrt(1. - cosTheta*cosTheta);
+  // G4double ux = sinTheta*std::cos(phi),
+  //          uy = sinTheta*std::sin(phi),
+  //          uz = cosTheta;
 
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(mom));
-  
+
   fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-

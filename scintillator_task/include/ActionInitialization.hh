@@ -31,20 +31,30 @@
 #define ActionInitialization_h 1
 
 #include "G4VUserActionInitialization.hh"
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <thread>
+#include "json/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
 
 /// Action initialization class.
 ///
 
 class ActionInitialization : public G4VUserActionInitialization
 {
-  public:
-    ActionInitialization();
-    virtual ~ActionInitialization();
-
-    virtual void BuildForMaster() const;
-    virtual void Build() const;
+public:
+  ActionInitialization();
+  virtual ~ActionInitialization();
+  void setJsonConfig(json cfg)
+  {
+    config = cfg;
+  }
+  virtual void BuildForMaster() const;
+  virtual void Build() const;
+  json config;
 };
 
 #endif
-
-    

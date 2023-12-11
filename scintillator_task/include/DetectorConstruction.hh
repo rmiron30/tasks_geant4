@@ -27,7 +27,7 @@
 /// \brief Definition of the DetectorConstruction class
 //
 //
-// 
+//
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -37,20 +37,54 @@
 
 #include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <thread>
+#include "json/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
-  public:
-  
-    DetectorConstruction();
-   ~DetectorConstruction();
-     
-    virtual G4VPhysicalVolume* Construct();
+public:
+  DetectorConstruction();
+  virtual ~DetectorConstruction();
+
+  virtual G4VPhysicalVolume *Construct();
+
+  void SetScintillatorThickness(G4double thickness)
+  {
+    fThickness = thickness;
+    G4cout << "set thickness " << fThickness << " " << std::this_thread::get_id() << G4endl;
+  }
+
+  void SetScintillatorType(G4String material)
+  {
+    fMat = material;
+    G4cout << "set material " << fMat << G4endl;
+  }
+
+  void setJsonConfig(json cfg)
+  {
+    config = cfg;
+  }
+
+  G4double GetScintillatorThickness()
+  {
+    return fThickness;
+  }
+
+private:
+  G4double fThickness;
+  G4String fMat;
+
+  json config;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
-

@@ -36,19 +36,21 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ActionInitialization::ActionInitialization()
- : G4VUserActionInitialization()
-{}
+    : G4VUserActionInitialization()
+{
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ActionInitialization::~ActionInitialization()
-{}
+{
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void ActionInitialization::BuildForMaster() const
 {
- SetUserAction(new RunAction);
+  SetUserAction(new RunAction);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -56,10 +58,12 @@ void ActionInitialization::BuildForMaster() const
 void ActionInitialization::Build() const
 {
   SetUserAction(new RunAction);
-  SetUserAction(new PrimaryGeneratorAction);
-  EventAction* eventAction = new EventAction;
+  // SetUserAction(new PrimaryGeneratorAction);
+  auto generator = new PrimaryGeneratorAction();
+  generator->setJsonConfig(config);
+  EventAction *eventAction = new EventAction;
   SetUserAction(eventAction);
   SetUserAction(new SteppingAction(eventAction));
-}  
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

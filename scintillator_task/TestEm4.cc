@@ -45,61 +45,98 @@
 #include "G4UIExecutive.hh"
 #include "G4VisExecutive.hh"
 
+#include "json/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-int main(int argc,char** argv) {
+json readfile(string name)
+{
+  ifstream file(name);
+  json j;
+  file >> j;
 
-  //detect interactive mode (if no arguments) and define UI session
-  G4UIExecutive* ui = nullptr;
-  if (argc == 1) ui = new G4UIExecutive(argc,argv);
+  return j;
+}
 
-  //choose the Random engine
+int main(int argc, char **argv)
+{
+
+  // detect interactive mode (if no arguments) and define UI session
+  G4UIExecutive *ui = nullptr;
+  if (argc == 1)
+    ui = new G4UIExecutive(argc, argv);
+
+  // read json file
+  auto configFile = readfile("/home/raluca/geant4/tasks_geant4/scintillator_task/config.json");
+
+  cout << configFile["thickness"] << endl;
+  G4double thickness = configFile["thickness"]; // width of the scintillator, mm
+  G4cout << configFile["thickness"] << " config thickness " << typeid(thickness).name() << G4endl;
+  G4String material = configFile["material"]; // type of material, string
+
+  // choose the Random engine
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
-  
-  //Use SteppingVerbose with Unit
+
+  // Use SteppingVerbose with Unit
   G4int precision = 4;
   G4SteppingVerbose::UseBestUnit(precision);
-  
-  //construct the run manager
+
+  // construct the run manager
   auto runManager = G4RunManagerFactory::CreateRunManager();
-  if (argc==3) {
-     G4int nThreads = G4UIcommand::ConvertToInt(argv[2]);
-     runManager->SetNumberOfThreads(nThreads);
+  if (argc == 3)
+  {
+    G4int nThreads = G4UIcommand::ConvertToInt(argv[2]);
+    runManager->SetNumberOfThreads(nThreads);
   }
-  //set mandatory initialization classes
-  runManager->SetUserInitialization(new DetectorConstruction);
+  // set mandatory initialization classes
+
+  DetectorConstruction *detector = new DetectorConstruction();
+  detector->setJsonConfig(configFile);
+  detector->SetScintillatorThickness(thickness);
+  runManager->SetUserInitialization(detector);
+
+  detector->SetScintillatorThickness(thickness);
+  // G4cout << detector->GetScintillatorThickness() << "%%%%%" << G4endl;
+  // detector->SetScintillatorType(material);
   runManager->SetUserInitialization(new PhysicsList);
 
-  //set user action classes
-  runManager->SetUserInitialization(new ActionInitialization());
+  // set user action classes
 
-  //Initialize G4 kernel
+  auto action = new ActionInitialization();
+  action->setJsonConfig(configFile);
+  runManager->SetUserInitialization(action);
+
+  // Initialize G4 kernel
   runManager->Initialize();
 
-  //initialize visualization
-  G4VisManager* visManager = nullptr;
+  // initialize visualization
+  G4VisManager *visManager = nullptr;
 
-  //get the pointer to the User Interface manager
-  G4UImanager* UImanager = G4UImanager::GetUIpointer();
+  // get the pointer to the User Interface manager
+  G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-  if (ui)  {
-   //interactive mode
-   visManager = new G4VisExecutive;
-   visManager->Initialize();
-   ui->SessionStart();
-   delete ui;
+  if (ui)
+  {
+    // interactive mode
+    visManager = new G4VisExecutive;
+    visManager->Initialize();
+    ui->SessionStart();
+    delete ui;
   }
-  else  {
-   //batch mode
-   G4String command = "/control/execute ";
-   G4String fileName = argv[1];
-   UImanager->ApplyCommand(command+fileName);
+  else
+  {
+    // batch mode
+    G4String command = "/control/execute ";
+    G4String fileName = argv[1];
+    UImanager->ApplyCommand(command + fileName);
   }
 
-  //job termination
+  // job termination
   delete visManager;
   delete runManager;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
