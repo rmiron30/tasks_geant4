@@ -28,7 +28,7 @@
 //
 //
 //
-// 
+//
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -43,31 +43,34 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-SteppingAction::SteppingAction(EventAction* EvAct)
-:G4UserSteppingAction(),fEventAction(EvAct)
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-SteppingAction::~SteppingAction()
-{ }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void SteppingAction::UserSteppingAction(const G4Step* aStep)
+SteppingAction::SteppingAction(EventAction *EvAct)
+    : G4UserSteppingAction(), fEventAction(EvAct)
 {
- G4double EdepStep = aStep->GetTotalEnergyDeposit();
- if (EdepStep > 0.) fEventAction->AddEdep(EdepStep);
- 
- G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
- G4ThreeVector position = aStep->GetPostStepPoint()->GetPosition();
- if(EdepStep>0.){
- analysisManager->FillH2(1, position.x(), position.y(), EdepStep/MeV);
- G4cout << position.x() << ' ' << position.y() << " " << EdepStep/MeV  << G4endl;
-  }
- //example of saving random number seed of this event, under condition
- //// if (condition) G4RunManager::GetRunManager()->rndmSaveThisEvent();  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+SteppingAction::~SteppingAction()
+{
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void SteppingAction::UserSteppingAction(const G4Step *aStep)
+{
+    G4double EdepStep = aStep->GetTotalEnergyDeposit();
+    if (EdepStep > 0.)
+        fEventAction->AddEdep(EdepStep);
+
+    G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+    G4ThreeVector position = aStep->GetPostStepPoint()->GetPosition();
+    if (EdepStep > 0.)
+    {
+        analysisManager->FillH2(1, position.x(), position.y(), EdepStep / MeV);
+        // G4cout << position.x() << ' ' << position.y() << " " << EdepStep/MeV  << G4endl;
+    }
+    // example of saving random number seed of this event, under condition
+    //// if (condition) G4RunManager::GetRunManager()->rndmSaveThisEvent();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

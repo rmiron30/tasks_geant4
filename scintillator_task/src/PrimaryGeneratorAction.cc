@@ -57,7 +57,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   G4ParticleDefinition *particle = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
-  fParticleGun->SetParticleEnergy(5 * MeV);
+
   fParticleGun->SetParticlePosition(G4ThreeVector(0. * cm, 0. * cm, -10 * cm));
 }
 
@@ -78,6 +78,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
   //
   G4ThreeVector pos(0., 0., 0.);
   G4ThreeVector mom(0., 0., 1.);
+
+  fParticleGun->SetParticleEnergy(config["energy"].get<double>() * MeV); // hist fill -> retine nr de fotoni
 
   //	fParticleGun->SetParticlePosition(pos);
   //	fParticleGun->SetParticleMomentumDirection(mom);

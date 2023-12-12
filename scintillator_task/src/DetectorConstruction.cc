@@ -155,7 +155,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   // G4cout << config["thickness"] << " x3 " << G4endl;
 
-  G4Box *scintilBox = new G4Box("scintilBox", x1, x2, config["thickness"]);
+  G4Box *scintilBox = new G4Box("scintilBox", x1, x2, config["thickness"].get<double>() * mm);
   // G4Box *scintilBox = new G4Box("scintilBox", x1, x2, x3);
   G4Material *mat;
 

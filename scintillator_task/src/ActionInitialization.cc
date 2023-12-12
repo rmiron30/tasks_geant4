@@ -61,6 +61,7 @@ void ActionInitialization::Build() const
   // SetUserAction(new PrimaryGeneratorAction);
   auto generator = new PrimaryGeneratorAction();
   generator->setJsonConfig(config);
+  SetUserAction(generator);
   EventAction *eventAction = new EventAction;
   SetUserAction(eventAction);
   SetUserAction(new SteppingAction(eventAction));
