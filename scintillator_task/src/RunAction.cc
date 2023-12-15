@@ -26,7 +26,7 @@
 /// \file electromagnetic/TestEm4/src/RunAction.cc
 /// \brief Implementation of the RunAction class
 //
-// 
+//
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -40,20 +40,27 @@
 
 #include "G4AnalysisManager.hh"
 
+#include <cstdlib>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+// namespace fs = std::filesystem;
+using namespace std;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RunAction::RunAction()
- : G4UserRunAction()
+    : G4UserRunAction()
 {
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
   analysisManager->SetDefaultFileType("root");
-  analysisManager->SetVerboseLevel(2);  
+  analysisManager->SetVerboseLevel(2);
   analysisManager->SetFirstHistoId(1);
-    
+
   // Creating histograms
   //
-  analysisManager->CreateH1("Hist1D","energy (MeV) deposited in CsI",100000,0.,11.);
-   analysisManager->CreateH2("eDep2D", "Energy Deposition", 2000, -1*mm, 1*mm, 2000, -1*mm, 1*mm);
+  analysisManager->CreateH1("Hist1D", "energy (MeV) deposited in CsI", 100000, 0., 11.);
+  analysisManager->CreateH2("eDep2D", "Energy Deposition", 2000, -1 * mm, 1 * mm, 2000, -1 * mm, 1 * mm);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -64,30 +71,35 @@ RunAction::~RunAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void RunAction::BeginOfRunAction(const G4Run*)
+void RunAction::BeginOfRunAction(const G4Run *)
 {
   // show Rndm status
-  if (isMaster) G4Random::showEngineStatus();
+  if (isMaster)
+    G4Random::showEngineStatus();
 
-  
-   // Get analysis manager
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  // Get analysis manager
+  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
 
   // Open an output file
   //
   G4String fileName = "testem4";
-  analysisManager->OpenFile(fileName);    
+  analysisManager->OpenFile(fileName);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void RunAction::EndOfRunAction(const G4Run*)
-{  
+void RunAction::EndOfRunAction(const G4Run *)
+{
   // show Rndm status
-  if (isMaster) G4Random::showEngineStatus();         
+  if (isMaster)
+    G4Random::showEngineStatus();
 
-  //save histograms      
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  // save histograms
+  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  std::filesystem::create_directory("exemplu");
+  const auto copyOptions = std::filesystem::copy_options::update_existing | std::filesystem::copy_options::recursive | std::filesystem::copy_options::directories_only;
+  std::filesystem::copy("testem4.root", "exemplu/testem4.root", copyOptions);
+  // std::filesystem::remove_all("exemplu");
   analysisManager->Write();
   analysisManager->CloseFile();
 }
