@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/rmiron/geant4/geant4-v11.1.2-install/include",
+                "/home/rmiron/geant4/geant4-v11.1.2-install/include/Geant4",
+                "/home/rmiron/geant4/tasks_geant4/scintillator_task/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++23",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

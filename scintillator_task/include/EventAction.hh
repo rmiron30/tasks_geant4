@@ -39,6 +39,11 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 
+#include "json/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class EventAction : public G4UserEventAction
@@ -52,10 +57,16 @@ class EventAction : public G4UserEventAction
     virtual void   EndOfEventAction(const G4Event*);
     
     void AddEdep(G4double Edep)     {fTotalEnergyDeposit += Edep;};      
-    G4double GetEnergyDeposit()     {return fTotalEnergyDeposit;};    
+    G4double GetEnergyDeposit()     {return fTotalEnergyDeposit;};  
+    
+      void setJsonConfig(json cfg)
+  {
+    config = cfg;
+  }  
         
   private:
     G4double fTotalEnergyDeposit;   // Energy deposited in c6f6
+    json config;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

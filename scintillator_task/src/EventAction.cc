@@ -37,6 +37,11 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "json/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 EventAction::EventAction()
@@ -63,9 +68,10 @@ void EventAction::EndOfEventAction( const G4Event*)
 {                          
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   
+  analysisManager -> FillH1(2, config["energy"].get<double>() / MeV);
+  
   if (fTotalEnergyDeposit!=0)
   analysisManager->FillH1(1, fTotalEnergyDeposit/MeV);
-  // analysisManager -> FillH2(1, 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -56,11 +56,13 @@ RunAction::RunAction()
   analysisManager->SetDefaultFileType("root");
   analysisManager->SetVerboseLevel(2);
   analysisManager->SetFirstHistoId(1);
+  //analysisManager->SetSecondHistoId(2);
 
   // Creating histograms
   //
   analysisManager->CreateH1("Hist1D", "energy (MeV) deposited in CsI", 100000, 0., 11.);
   analysisManager->CreateH2("eDep2D", "Energy Deposition", 2000, -1 * mm, 1 * mm, 2000, -1 * mm, 1 * mm);
+  analysisManager->CreateH1("enerBeam", "energy of the beam", 100000, 0., 11.);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

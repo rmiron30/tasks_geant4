@@ -64,6 +64,7 @@ void ActionInitialization::Build() const
   SetUserAction(generator);
   EventAction *eventAction = new EventAction;
   SetUserAction(eventAction);
+  eventAction->setJsonConfig(config);
   SetUserAction(new SteppingAction(eventAction));
 }
 
