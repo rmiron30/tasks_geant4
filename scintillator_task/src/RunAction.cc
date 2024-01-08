@@ -122,6 +122,7 @@ void RunAction::EndOfRunAction(const G4Run *)
   analysisManager->Write();
   analysisManager->CloseFile();
 
+
   if (isMaster){
     G4Random::showEngineStatus();
     //  const auto copyOptions = std::filesystem::copy_options::update_existing | std::filesystem::copy_options::recursive | std::filesystem::copy_options::directories_only;

@@ -47,6 +47,8 @@
 
 #include "json/json.hpp"
 
+#include <filesystem>
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -69,11 +71,13 @@ int main(int argc, char **argv)
   if (argc == 1)
     ui = new G4UIExecutive(argc, argv);
 
+  const auto path = std::filesystem::path(std::filesystem::current_path());
   // read json file
   //auto configFile = readfile("/home/raluca/geant4/tasks_geant4/scintillator_task/config.json");
   // auto configFile = readfile("/home/rmiron/geant4/tasks_geant4/scintillator_task/config.json");
-  auto configFile = readfile("/home/diagpc/Miron/Geant4/tasks_geant4/scintillator_task/config.json");
+  // auto configFile = readfile("/home/diagpc/Miron/Geant4/tasks_geant4/scintillator_task/config.json");
   // auto configFile = readfile("/home/raluca/tasks_geant4/scintillator_task/config.json");
+  auto configFile = readfile(path.string() + "/config.json");
 
   cout << configFile["thickness"] << endl;
   G4double thickness = configFile["thickness"]; // width of the scintillator, mm
