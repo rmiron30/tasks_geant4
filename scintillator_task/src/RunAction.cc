@@ -44,6 +44,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <ctime>
 // namespace fs = std::filesystem;
 using namespace std;
 
@@ -60,9 +61,9 @@ RunAction::RunAction()
 
   // Creating histograms
   //
-  analysisManager->CreateH1("Hist1D", "energy (MeV) deposited in CsI", 100000, 0., 11.);
+  analysisManager->CreateH1("Hist1D", "deposited energy (MeV)", 100000, 0., 11.);
   analysisManager->CreateH2("eDep2D", "Energy Deposition", 2000, -1 * mm, 1 * mm, 2000, -1 * mm, 1 * mm);
-  analysisManager->CreateH1("enerBeam", "energy of the beam", 100000, 0., 11.);
+  analysisManager->CreateH1("enerBeam", "energy of the beam", 1000, 0., 11.);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -93,17 +94,44 @@ void RunAction::BeginOfRunAction(const G4Run *)
 void RunAction::EndOfRunAction(const G4Run *)
 {
   // show Rndm status
-  if (isMaster)
+
+  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
+  char timeDir [80];
+
+  if (isMaster){
     G4Random::showEngineStatus();
 
-  // save histograms
-  G4AnalysisManager *analysisManager = G4AnalysisManager::Instance();
-  std::filesystem::create_directory("exemplu");
-  const auto copyOptions = std::filesystem::copy_options::update_existing | std::filesystem::copy_options::recursive | std::filesystem::copy_options::directories_only;
-  std::filesystem::copy("testem4.root", "exemplu/testem4.root", copyOptions);
-  // std::filesystem::remove_all("exemplu");
+    // the current time
+
+    std::time_t t = std::time(nullptr);
+    
+    std::strftime(timeDir, 80, "%Y-%m-%d-%H-%M-%S", std::localtime(&t));
+
+    // save histograms
+  
+    std::filesystem::create_directory(timeDir);
+    
+
+  }
+
+  
+  // std::ifstream file("testem4.root", std::ios::binary);
+  // std::ofstream newFile(timeDir + std::string("/testem4.root"), std::ios::binary);
+  // newFile << file.rdbuf();
+
   analysisManager->Write();
   analysisManager->CloseFile();
+
+  if (isMaster){
+    G4Random::showEngineStatus();
+    //  const auto copyOptions = std::filesystem::copy_options::update_existing | std::filesystem::copy_options::recursive | std::filesystem::copy_options::directories_only;
+    const auto copyOptions = std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive; 
+    std::filesystem::copy("testem4.root", timeDir + std::string("/testem4.root"), copyOptions);
+    std::filesystem::copy("../config.json", timeDir + std::string("/config.json"), copyOptions);
+
+  }
+
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
