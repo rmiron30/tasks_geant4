@@ -77,7 +77,7 @@ int main(int argc, char **argv)
   // auto configFile = readfile("/home/rmiron/geant4/tasks_geant4/scintillator_task/config.json");
   // auto configFile = readfile("/home/diagpc/Miron/Geant4/tasks_geant4/scintillator_task/config.json");
   // auto configFile = readfile("/home/raluca/tasks_geant4/scintillator_task/config.json");
-  auto configFile = readfile(path.string() + "/config.json");
+  auto configFile = readfile(path.string() + "/../config.json");
 
   cout << configFile["thickness"] << endl;
   G4double thickness = configFile["thickness"]; // width of the scintillator, mm
