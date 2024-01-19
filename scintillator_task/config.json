@@ -1,5 +1,5 @@
 {
     "thickness": 2,
-    "material": "CsI",
-    "energy": 10
+    "material": "BGO",
+    "energy": 1
 }
