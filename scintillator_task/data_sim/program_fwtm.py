@@ -39,12 +39,12 @@ def CalculateFwtm(hist):
     leftBin = hist.GetXaxis().FindBin(hist.GetBinCenter(1))
     rightBin = hist.GetXaxis().FindBin(hist.GetBinCenter(nbins))
 
-    for i in range(1, nbins + 1):
+    for i in range(10, nbins + 1):
         if hist.GetBinContent(i) >= tenthmax:
             leftBin = i
             break
 
-    for i in range(nbins, 0, -1):
+    for i in range(nbins, 10, -1):
         if hist.GetBinContent(i) >= tenthmax:
             rightBin = i
             break
@@ -81,6 +81,8 @@ for root, dirs, files in os.walk(cwd):
             if histo:
                 if config["material"] == "CsI" and config["thickness"] == 1 and config["energy"] == 5:
                     print("folderul CsI 1 mm 5 MeV este "+ dir)
+                if config["material"] == "CsI" and config["thickness"] == 2:
+                    print("folderul CsI 2 mm este "+ dir)
                 Xproj = histo.ProjectionX("XProjection")
                 # Yproj = histo.ProjectionY("YProjection")
                 fwhm_x = CalculateFwhm(Xproj)

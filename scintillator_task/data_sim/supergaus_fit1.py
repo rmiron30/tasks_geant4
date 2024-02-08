@@ -17,6 +17,7 @@ def super_gaussian(x, amplitude=1.0, center=0.0, sigma=1.0, expon=2.0):
     return ((amplitude/(np.sqrt(2*np.pi)*sigma))
             * np.exp(-abs(x-center)**expon / 2*sigma**expon))
 
+
 colors_energy = {'0.1': "purple", '0.5':"green", '1':"red", '3':"blue", '5':"orange", '10':"lawngreen"}
 energies = ["0.1", "0.5", "1", "3", "5", "10"]
 order = [energies.index(i) for i in energies]
@@ -42,16 +43,6 @@ for root, dirs, files in os.walk(cwd):
                 plt.xlabel("X [mm]")
                 plt.ylabel("deposited energy")    
                 plt.legend()
-                if config["energy"] == 3:
-                    plt.figure(4)
-                    plt.plot(x_values, y_values, label = "{} MeV".format(config["energy"]), color = colors_energy[str(config["energy"])])
-                    plt.title("LYSO 2 mm")
-                    # plt.yscale("log")
-                    plt.xlim(-1,1)
-                    plt.xlabel("X [mm]")
-                    plt.ylabel("deposited energy")    
-                    plt.legend()
-                    print(dir)
                 # plt.legend([plt.gca().get_legend().legendHandles[idx] for idx in order], [f'{energies[idx]} MeV' for idx in order])
             elif histo and config["material"] == "BGO" and config["thickness"] == 2:
                 Xproj = histo.ProjectionX("XProjection")
@@ -93,9 +84,6 @@ plt.figure(2)
 plt.savefig("BGO_2mm.pdf")
 plt.figure(3)
 plt.savefig("CsI_2mm.pdf")
-plt.figure(4)
-plt.savefig("LYSO_3MeV.pdf")
-
 plt.show()
 # x = np.linspace(0, 10, 101)
 # y = super_gaussian(x, amplitude=7.1, center=4.5, sigma=2.5, expon=1.5)
