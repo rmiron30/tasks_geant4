@@ -1,0 +1,1 @@
+Mat	Energy (MeV)	Width	Entries	 	 DepEner (MeV)	 DepEnerPart (MeV/part) 	 N comp 	 scintills 	 total scintills

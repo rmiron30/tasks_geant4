@@ -1,0 +1,3 @@
+- grafic FWTM si FWHM in fct de energie pentru 3 scintil + 3 grosimi (9 curbe)
+- super Gaussiana
+- drive cu fisierele latex
