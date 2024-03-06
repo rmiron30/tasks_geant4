@@ -221,6 +221,7 @@ plt.xlabel('Energy (MeV)')
 plt.ylabel("Ratio (%)")
 plt.title("Deposited energy in FWTM zone")
 plt.xlim([-0.5,10.5])
+plt.savefig("dep_ten.pdf")
 plt.legend()
 
 ########
@@ -294,4 +295,5 @@ plt.title("Optical yield as function of energy for " + r"$10^7$" + "incident pho
 plt.xlim([-0.5,10.5])
 plt.ylim(bottom=0)
 plt.legend(loc='upper left')
+plt.savefig("scintillations_all.pdf")
 plt.show()
