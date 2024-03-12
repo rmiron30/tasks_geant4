@@ -98,6 +98,7 @@ void PhysicsList::ConstructProcess()
 #include "G4ComptonScattering.hh"
 #include "G4GammaConversion.hh"
 #include "G4PhotoElectricEffect.hh"
+#include "G4RayleighScattering.hh"
 
 #include "G4eMultipleScattering.hh"
 
@@ -122,6 +123,7 @@ void PhysicsList::ConstructEM()
       ph->RegisterProcess(new G4PhotoElectricEffect, particle);
       ph->RegisterProcess(new G4ComptonScattering,   particle);
       ph->RegisterProcess(new G4GammaConversion,     particle);
+      ph->RegisterProcess(new G4RayleighScattering,  particle);
       
     } else if (particleName == "e-") {
 
