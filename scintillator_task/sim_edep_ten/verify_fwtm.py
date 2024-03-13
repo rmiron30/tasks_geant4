@@ -57,7 +57,7 @@ def CalculateHalf(hist):
         
     sum = 0
 
-    for i in range(leftBin, rightBin, +1):
+    for i in range(leftBin, rightBin +1):
         sum+=hist.GetBinContent(i)
     
     return sum
@@ -81,7 +81,7 @@ def CalculateTen(hist):
         
     sum = 0
 
-    for i in range(leftBin, rightBin, +1):
+    for i in range(leftBin, rightBin +1):
         sum+=hist.GetBinContent(i)
 
     return sum
@@ -205,7 +205,7 @@ for root, dirs, files in os.walk(cwd):
 #     figure.legend(sorted_handles,sorted_labels, loc='upper left')
 # legend_sorted(plt)
 
-plt.figure(1)
+# plt.figure(1)
 # plt.savefig("LYSO_2mm.pdf")
 # plt.figure(2)
 # plt.savefig("BGO_2mm.pdf")

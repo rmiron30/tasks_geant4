@@ -84,15 +84,8 @@ for root, dirs, files in os.walk(cwd):
                 if config["material"] == "CsI" and config["thickness"] == 2:
                     print("folderul CsI 2 mm este "+ dir)
                 Xproj = histo.ProjectionX("XProjection")
-                # Yproj = histo.ProjectionY("YProjection")
                 fwhm_x = CalculateFwhm(Xproj)
                 fwtm_x = CalculateFwtm(Xproj)
-                # fwhm_y = calculate_fwhm(Yproj)
-                # fwtm_y = calculate_fwtm(Yproj)
-                # print("FWHM_X :", fwhm_x)
-                # print("FWTM_X :", fwtm_x)
-                # print("FWHM_Y :", fwhm_y)
-                # print("FWTM_Y :", fwtm_y)
                 file.Close()
             else:
                 print("histogram not found.")

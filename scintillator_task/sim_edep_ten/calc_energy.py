@@ -36,7 +36,7 @@ def CalculateFwhm(hist):
         
     sum = 0
 
-    for i in range(leftBin, rightBin, +1):
+    for i in range(leftBin, rightBin +1):
         sum+=hist.GetBinContent(i)
 
     fwhm = hist.GetXaxis().GetBinCenter(rightBin) - hist.GetXaxis().GetBinCenter(leftBin)
@@ -64,7 +64,7 @@ def CalculateFwtm(hist):
 
     sum = 0
 
-    for i in range(leftBin, rightBin, +1):
+    for i in range(leftBin, rightBin +1):
         sum+=hist.GetBinContent(i)
 
     return hist.GetXaxis().GetBinCenter(leftBin), hist.GetXaxis().GetBinCenter(rightBin), tenthmax, fwtm, sum
@@ -130,20 +130,15 @@ for root, dirs, files in os.walk(cwd):
             
             if histo:
                 Xproj = histo.ProjectionX("XProjection")
-                x_values = [Xproj.GetBinCenter(i) for i in range(1, Xproj.GetNbinsX()+1)]
-                y_values = [Xproj.GetBinContent(i) for i in range(1, Xproj.GetNbinsX()+1)]
-
                 left, right, halfmax, fwhm, eHalf = CalculateFwhm(Xproj)
                 left2, right2, tenthmax, fwtm, eTen = CalculateFwtm(Xproj)
                 eDep = 0
-                for i in range(1, hist1D.GetNbinsX() + 1):
-                    eDep += hist1D.GetBinCenter(i) * hist1D.GetBinContent(i)
+                for i in range(1, Xproj.GetNbinsX() + 1):
+                    eDep += Xproj.GetBinContent(i)
                 file.Close()
             data.append(getDataFromFiles(config))
             os.chdir(cwd)
 data = sorted(data, key=itemgetter("material", "energy", "width"))
-
-
 
 output_file = open("energy_fwtm.txt", "w")
 
@@ -258,6 +253,7 @@ plt.plot(xb2, yb2, color = colors_materials["BGO"], label = "BGO 2 mm", marker =
 plt.xlabel('Energy (MeV)')
 plt.ylabel("Ratio (%)")
 plt.title("Deposited energy in FWTM zone")
+plt.ylim(bottom = 0)
 plt.xlim([-0.5,10.5])
 plt.savefig("dep_ten.pdf")
 plt.legend()
