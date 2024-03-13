@@ -74,18 +74,19 @@ for root, dirs, files in os.walk(cwd):
                     eDep += Xproj.GetBinContent(i)
                 file.Close()
             data.append(getDataFromFiles(config))
-            # if config["energy"] == 10 and config["material"] == "LYSO" and config["thickness"]*2 == 2:
-            #     # left2, right2, tenthmax, fwtm, eTwenty = CalculateTwenty(Xproj)
-            #     plt.figure(3)
-            #     plt.plot(x_values, y_values, label = "{} MeV".format(config["energy"]), color = colors_energy[str(config["energy"])])
-            #     plt.hlines(tenthmax, left, right, color = 'green', linestyle= 'solid' )
-            #     plt.title("LYSO 2 mm")
-            #     # plt.yscale("log")
-            #     plt.xlim(-1,1)
-            #     plt.xlabel("X [mm]")
-            #     plt.ylabel("deposited energy")    
-            #     plt.legend()
-            #     print(dir)
+            if config["energy"] == 3 and config["material"] == "LYSO" and config["thickness"]*2 == 2:
+                # left2, right2, tenthmax, fwtm, eTwenty = CalculateTwenty(Xproj)
+                plt.figure(1)
+                plt.plot(x_values, y_values, label = "{} MeV".format(config["energy"]), color = colors_energy[str(config["energy"])])
+                plt.hlines(tenthmax, left, right, color = 'green', linestyle= 'solid' )
+                plt.title("LYSO 2 mm")
+                # plt.yscale("log")
+                plt.xlim(-1,1)
+                plt.xlabel("X [mm]")
+                plt.ylabel("deposited energy")    
+                plt.legend()
+                plt.savefig("LYSO_fwtm.pdf")
+                print(dir)
             os.chdir(cwd)
 data = sorted(data, key=itemgetter("material", "energy", "width"))
 
@@ -148,7 +149,7 @@ for dataPoint in data:
             xb2.append(dataPoint["energy"])
             yb2.append(dataPoint["raport"])
 
-plt.figure(1)
+plt.figure(2)
 plt.plot(xc05, yc05, color = colors_materials["CSI"], label = "CsI 0.5 mm", marker = markers_width["0.5"])
 plt.plot(xc1, yc1, color = colors_materials["CSI"], label = "CsI 1 mm", marker = markers_width["1.0"])
 plt.plot(xc2, yc2, color = colors_materials["CSI"], label = "CsI 2 mm", marker = markers_width["2.0"])
@@ -163,8 +164,8 @@ plt.ylabel("Ratio (%)")
 plt.title("Deposited energy in FW twenty max zone")
 plt.ylim(bottom = 0)
 plt.xlim([-0.5,10.5])
-plt.savefig("dep_twenty.pdf")
 plt.legend()
+plt.savefig("dep_twenty.pdf")
 
 xc05 = []
 xc1 = []
@@ -222,7 +223,7 @@ for dataPoint in data:
 colors_materials = {'CSI': "blue", 'BGO': "green", 'LYSO': "red"}
 markers_thickness = {'0.5': "o", '1.0': "v", '2.0': "s"}
 
-plt.figure(2)
+plt.figure(3)
 plt.plot(xc05, yc05, color = colors_materials["CSI"], label = "CsI 0.5 mm", marker = markers_thickness["0.5"])
 plt.plot(xc1, yc1, color = colors_materials["CSI"], label = "CsI 1 mm", marker = markers_thickness["1.0"])
 plt.plot(xc2, yc2, color = colors_materials["CSI"], label = "CsI 2 mm", marker = markers_thickness["2.0"])

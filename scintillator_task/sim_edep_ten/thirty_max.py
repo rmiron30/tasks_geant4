@@ -74,18 +74,18 @@ for root, dirs, files in os.walk(cwd):
                     eDep += Xproj.GetBinContent(i)
                 file.Close()
             data.append(getDataFromFiles(config))
-            # if config["energy"] == 10 and config["material"] == "LYSO" and config["thickness"]*2 == 2:
-            #     # left2, right2, tenthmax, fwtm, eThirty = CalculateThirty(Xproj)
-            #     plt.figure(3)
-            #     plt.plot(x_values, y_values, label = "{} MeV".format(config["energy"]), color = colors_energy[str(config["energy"])])
-            #     plt.hlines(tenthmax, left, right, color = 'green', linestyle= 'solid' )
-            #     plt.title("LYSO 2 mm")
-            #     # plt.yscale("log")
-            #     plt.xlim(-1,1)
-            #     plt.xlabel("X [mm]")
-            #     plt.ylabel("deposited energy")    
-            #     plt.legend()
-            #     print(dir)
+            if config["energy"] == 3 and config["material"] == "LYSO" and config["thickness"]*2 == 2:
+                # left2, right2, tenthmax, fwtm, eThirty = CalculateThirty(Xproj)
+                plt.figure(3)
+                plt.plot(x_values, y_values, label = "{} MeV".format(config["energy"]), color = colors_energy[str(config["energy"])])
+                plt.hlines(tenthmax, left, right, color = 'green', linestyle= 'solid' )
+                plt.title("LYSO 2 mm")
+                # plt.yscale("log")
+                plt.xlim(-1,1)
+                plt.xlabel("X [mm]")
+                plt.ylabel("deposited energy")    
+                plt.legend()
+                print(dir)
             os.chdir(cwd)
 data = sorted(data, key=itemgetter("material", "energy", "width"))
 
@@ -163,8 +163,9 @@ plt.ylabel("Ratio (%)")
 plt.title("Deposited energy in FW Thirty max zone")
 plt.ylim([0,100])
 plt.xlim([-0.5,10.5])
-plt.savefig("dep_Thirty.pdf")
 plt.legend()
+plt.savefig("dep_Thirty.pdf")
+
 
 xc05 = []
 xc1 = []

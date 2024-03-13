@@ -255,8 +255,8 @@ plt.ylabel("Ratio (%)")
 plt.title("Deposited energy in FWTM zone")
 plt.ylim(bottom = 0)
 plt.xlim([-0.5,10.5])
-plt.savefig("dep_ten.pdf")
 plt.legend()
+plt.savefig("dep_ten.pdf")
 
 ########
 
