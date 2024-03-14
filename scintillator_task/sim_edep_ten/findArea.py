@@ -32,7 +32,7 @@ def findDim(hist):
         else:
             leftBin -= 1
             rightBin +=1
-    return dim, sum
+    return dim, sum, eDep
 
 cwd = os.getcwd()
 count = 0
@@ -46,7 +46,7 @@ for root, dirs, files in os.walk(cwd):
             config = json.load(configFile)
             histo = file.Get("eDep2D")
             Xproj = histo.ProjectionX("XProjection")
-            print(findDim(Xproj), calcEdep(Xproj,1, Xproj.GetNbinsX()+1), dir)
+            print(findDim(Xproj), dir)
             if count == 10:
                 break
             os.chdir(cwd)
